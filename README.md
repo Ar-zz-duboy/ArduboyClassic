@@ -32,19 +32,18 @@ downloading the Arduboy Classic archive can be found in the next section.
 
 
 ##### Download an Archive
-Archived versions of the 1.1.0 release of the Arduboy Library can be downloaded
-and uncompressed. See the sub-section *Where to Install*, found at the bottom
-of this section. 
+Archived versions of the Arduboy Classic Library can be downloaded and
+uncompressed to your local Arduino *libraries* folder. See the sub-section
+*Where to Install*, found at the bottom of this section. 
 
 > **Downloads**
-> ([zip](https://github.com/Arduboy/ArduboyClassic/))
-> ([tar.gz](https://github.com/Arduboy/ArduboyClassic/))
+> ([zip](https://github.com/Arduboy/ArduboyClassic/archive/1-1-stable.zip))
 
 ##### Use Source Management (Git)
 Install the library by cloning its repository. This will put you on the `master`
 branch, which is the newest version of the library.
 ~~~bash
-git clone https://github.com/Arduboy/Arduboy-Classic.git
+git clone https://github.com/Arduboy/ArduboyClassic/tree/1-1-stable.git
 ~~~
 
 #### Where to Install
