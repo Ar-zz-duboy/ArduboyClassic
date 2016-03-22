@@ -2,7 +2,6 @@
 #define Arduboy_h
 
 #include "utility/core.h"
-#include <SPI.h>
 #include <Print.h>
 #include <limits.h>
 
