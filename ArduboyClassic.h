@@ -1,5 +1,5 @@
-#ifndef Arduboy_h
-#define Arduboy_h
+#ifndef ArduboyClassic_h
+#define ArduboyClassic_h
 
 #include "utility/core.h"
 #include <Print.h>
@@ -23,10 +23,10 @@
 // compare temperature to 2.5 internal reference and _BV(MUX5)
 #define ADC_TEMP (_BV(REFS0) | _BV(REFS1) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0))
 
-class Arduboy : public Print, public ArduboyCore
+class ArduboyClassic : public Print, public ArduboyClassicCore
 {
 public:
-  Arduboy();
+  ArduboyClassic();
 
   /// Returns true if the button mask passed in is pressed.
   /**
@@ -163,8 +163,8 @@ public:
   /// Swap the references of two pointers.
   void swap(int16_t& a, int16_t& b);
 
-  ArduboyTunes tunes;
-  ArduboyAudio audio;
+  ArduboyClassicTunes tunes;
+  ArduboyClassicAudio audio;
 
   void setFrameRate(uint8_t rate);
   bool nextFrame();

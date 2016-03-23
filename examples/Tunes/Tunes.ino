@@ -1,6 +1,6 @@
 #include <SPI.h>
 #include <EEPROM.h>
-#include <Arduboy.h>
+#include <ArduboyClassic.h>
 
 const byte PROGMEM score [] = {
   // Sinfonia No.12 in A major BWV.798 J.S.Bach
@@ -156,7 +156,7 @@ const byte PROGMEM score [] = {
   0x91,0x47, 0,53, 0,141, 0x80, 0x81, 0x82, 0x90,0x47, 0x91,0x44, 0x92,0x28, 0,95, 1,77, 0,202,
   0x80, 0x81, 0x90,0x45, 0,91, 0,136, 0x80, 0x82, 0x90,0x45, 0x91,0x2D, 7,83, 0x80, 0x81, 0xf0};
 
-Arduboy arduboy;
+ArduboyClassic arduboy;
 
 void setup()
 {

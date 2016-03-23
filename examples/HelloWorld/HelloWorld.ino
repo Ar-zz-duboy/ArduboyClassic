@@ -13,10 +13,10 @@ version 2.1 of the License, or (at your option) any later version.
 
 #include <SPI.h>
 #include <EEPROM.h>
-#include <Arduboy.h>
+#include <ArduboyClassic.h>
 
 // make an instance of arduboy used for many functions
-Arduboy arduboy;
+ArduboyClassic arduboy;
 
 
 // This function runs once in your game.

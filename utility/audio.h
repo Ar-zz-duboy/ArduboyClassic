@@ -1,5 +1,5 @@
-#ifndef ArduboyAudio_h
-#define ArduboyAudio_h
+#ifndef ArduboyClassicAudio_h
+#define ArduboyClassicAudio_h
 
 #include <Arduino.h>
 #include <EEPROM.h>
@@ -13,7 +13,7 @@
 #define TUNE_OP_STOP      0xf0  /* stop playing */
 
 
-class ArduboyAudio
+class ArduboyClassicAudio
 {
 public:
   void static begin();
@@ -27,7 +27,7 @@ protected:
 };
 
 
-class ArduboyTunes
+class ArduboyClassicTunes
 {
 public:
   // Playtune Functions
