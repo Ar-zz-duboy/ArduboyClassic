@@ -11,10 +11,10 @@
 
 #include <SPI.h>
 #include <EEPROM.h>
-#include <Arduboy.h>
+#include <ArduboyClassic.h>
 #include "breakout_bitmaps.h"
 
-Arduboy arduboy;
+ArduboyClassic arduboy;
 
 const unsigned int COLUMNS = 13; //Columns of bricks
 const unsigned int ROWS = 4;     //Rows of bricks

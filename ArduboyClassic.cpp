@@ -1,8 +1,8 @@
-#include "Arduboy.h"
+#include "ArduboyClassic.h"
 #include "glcdfont.c"
 #include "ab_logo.c"
 
-Arduboy::Arduboy()
+ArduboyClassic::ArduboyClassic()
 {
   // frame management
   setFrameRate(60);
@@ -19,12 +19,12 @@ Arduboy::Arduboy()
   textsize = 1;
 }
 
-void Arduboy::start() // deprecated
+void ArduboyClassic::start() // deprecated
 {
   begin();
 }
 
-void Arduboy::begin()
+void ArduboyClassic::begin()
 {
   boot(); // required
   bootUtils();
@@ -40,7 +40,7 @@ void Arduboy::begin()
 // this is pusposely duplicated (without logo) so that
 // whichever is actually used is linked and the one
 // that is not is gone without wasting any space in flash
-void Arduboy::beginNoLogo()
+void ArduboyClassic::beginNoLogo()
 {
   boot(); // required
   bootUtils();
@@ -51,7 +51,7 @@ void Arduboy::beginNoLogo()
   audio.begin();
 }
 
-void Arduboy::bootUtils()
+void ArduboyClassic::bootUtils()
 {
   // flashlight
   if(pressed(UP_BUTTON)) {
@@ -62,7 +62,7 @@ void Arduboy::bootUtils()
   }
 }
 
-void Arduboy::bootLogo()
+void ArduboyClassic::bootLogo()
 {
   // setRGBled(10,0,0);
   for(int8_t y = -18; y<=24; y++) {
@@ -85,18 +85,18 @@ void Arduboy::bootLogo()
 
 /* Frame management */
 
-void Arduboy::setFrameRate(uint8_t rate)
+void ArduboyClassic::setFrameRate(uint8_t rate)
 {
   frameRate = rate;
   eachFrameMillis = 1000/rate;
 }
 
-bool Arduboy::everyXFrames(uint8_t frames)
+bool ArduboyClassic::everyXFrames(uint8_t frames)
 {
   return frameCount % frames == 0;
 }
 
-bool Arduboy::nextFrame()
+bool ArduboyClassic::nextFrame()
 {
   long now = millis();
   uint8_t remaining;
@@ -130,19 +130,19 @@ bool Arduboy::nextFrame()
   return post_render;
 }
 
-int Arduboy::cpuLoad()
+int ArduboyClassic::cpuLoad()
 {
   return lastFrameDurationMs*100 / eachFrameMillis;
 }
 
-void Arduboy::initRandomSeed()
+void ArduboyClassic::initRandomSeed()
 {
   power_adc_enable(); // ADC on
   randomSeed(~rawADC(ADC_TEMP) * ~rawADC(ADC_VOLTAGE) * ~micros() + micros());
   power_adc_disable(); // ADC off
 }
 
-uint16_t Arduboy::rawADC(byte adc_bits)
+uint16_t ArduboyClassic::rawADC(byte adc_bits)
 {
   ADMUX = adc_bits;
   // we also need MUX5 for temperature check
@@ -159,17 +159,17 @@ uint16_t Arduboy::rawADC(byte adc_bits)
 
 /* Graphics */
 
-void Arduboy::clearDisplay() // deprecated
+void ArduboyClassic::clearDisplay() // deprecated
 {
   clear();
 }
 
-void Arduboy::clear()
+void ArduboyClassic::clear()
 {
   fillScreen(BLACK);
 }
 
-void Arduboy::drawPixel(int x, int y, uint8_t color)
+void ArduboyClassic::drawPixel(int x, int y, uint8_t color)
 {
   #ifdef PIXEL_SAFE_MODE
   if (x < 0 || x > (WIDTH-1) || y < 0 || y > (HEIGHT-1))
@@ -189,14 +189,14 @@ void Arduboy::drawPixel(int x, int y, uint8_t color)
   }
 }
 
-uint8_t Arduboy::getPixel(uint8_t x, uint8_t y)
+uint8_t ArduboyClassic::getPixel(uint8_t x, uint8_t y)
 {
   uint8_t row = y / 8;
   uint8_t bit_position = y % 8;
   return (sBuffer[(row*WIDTH) + x] & _BV(bit_position)) >> bit_position;
 }
 
-void Arduboy::drawCircle(int16_t x0, int16_t y0, uint8_t r, uint8_t color)
+void ArduboyClassic::drawCircle(int16_t x0, int16_t y0, uint8_t r, uint8_t color)
 {
   int16_t f = 1 - r;
   int16_t ddF_x = 1;
@@ -233,7 +233,7 @@ void Arduboy::drawCircle(int16_t x0, int16_t y0, uint8_t r, uint8_t color)
   }
 }
 
-void Arduboy::drawCircleHelper
+void ArduboyClassic::drawCircleHelper
 (int16_t x0, int16_t y0, uint8_t r, uint8_t cornername, uint8_t color)
 {
   int16_t f = 1 - r;
@@ -278,13 +278,13 @@ void Arduboy::drawCircleHelper
   }
 }
 
-void Arduboy::fillCircle(int16_t x0, int16_t y0, uint8_t r, uint8_t color)
+void ArduboyClassic::fillCircle(int16_t x0, int16_t y0, uint8_t r, uint8_t color)
 {
   drawFastVLine(x0, y0-r, 2*r+1, color);
   fillCircleHelper(x0, y0, r, 3, 0, color);
 }
 
-void Arduboy::fillCircleHelper
+void ArduboyClassic::fillCircleHelper
 (int16_t x0, int16_t y0, uint8_t r, uint8_t cornername, int16_t delta,
  uint8_t color)
 {
@@ -322,7 +322,7 @@ void Arduboy::fillCircleHelper
   }
 }
 
-void Arduboy::drawLine
+void ArduboyClassic::drawLine
 (int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint8_t color)
 {
   // bresenham's algorithm - thx wikpedia
@@ -373,7 +373,7 @@ void Arduboy::drawLine
   }
 }
 
-void Arduboy::drawRect
+void ArduboyClassic::drawRect
 (int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t color)
 {
   drawFastHLine(x, y, w, color);
@@ -382,7 +382,7 @@ void Arduboy::drawRect
   drawFastVLine(x+w-1, y, h, color);
 }
 
-void Arduboy::drawFastVLine
+void ArduboyClassic::drawFastVLine
 (int16_t x, int16_t y, uint8_t h, uint8_t color)
 {
   int end = y+h;
@@ -392,7 +392,7 @@ void Arduboy::drawFastVLine
   }
 }
 
-void Arduboy::drawFastHLine
+void ArduboyClassic::drawFastHLine
 (int16_t x, int16_t y, uint8_t w, uint8_t color)
 {
   int end = x+w;
@@ -402,7 +402,7 @@ void Arduboy::drawFastHLine
   }
 }
 
-void Arduboy::fillRect
+void ArduboyClassic::fillRect
 (int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t color)
 {
   // stupidest version - update in subclasses if desired!
@@ -412,7 +412,7 @@ void Arduboy::fillRect
   }
 }
 
-void __attribute__ ((noinline)) Arduboy::fillScreen(uint8_t color)
+void __attribute__ ((noinline)) ArduboyClassic::fillScreen(uint8_t color)
 {
   // C version : 
   //
@@ -450,7 +450,7 @@ void __attribute__ ((noinline)) Arduboy::fillScreen(uint8_t color)
   );
 }
 
-void Arduboy::drawRoundRect
+void ArduboyClassic::drawRoundRect
 (int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t r, uint8_t color)
 {
   // smarter version
@@ -465,7 +465,7 @@ void Arduboy::drawRoundRect
   drawCircleHelper(x+r, y+h-r-1, r, 8, color);
 }
 
-void Arduboy::fillRoundRect
+void ArduboyClassic::fillRoundRect
 (int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t r, uint8_t color)
 {
   // smarter version
@@ -476,7 +476,7 @@ void Arduboy::fillRoundRect
   fillCircleHelper(x+r, y+r, r, 2, h-2*r-1, color);
 }
 
-void Arduboy::drawTriangle
+void ArduboyClassic::drawTriangle
 (int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t color)
 {
   drawLine(x0, y0, x1, y1, color);
@@ -484,7 +484,7 @@ void Arduboy::drawTriangle
   drawLine(x2, y2, x0, y0, color);
 }
 
-void Arduboy::fillTriangle
+void ArduboyClassic::fillTriangle
 (int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t color)
 {
 
@@ -587,7 +587,7 @@ void Arduboy::fillTriangle
   }
 }
 
-void Arduboy::drawBitmap
+void ArduboyClassic::drawBitmap
 (int16_t x, int16_t y, const uint8_t *bitmap, uint8_t w, uint8_t h, 
  uint8_t color)
 {
@@ -627,7 +627,7 @@ void Arduboy::drawBitmap
 }
 
 
-void Arduboy::drawSlowXYBitmap
+void ArduboyClassic::drawSlowXYBitmap
 (int16_t x, int16_t y, const uint8_t *bitmap, uint8_t w, uint8_t h, uint8_t color)
 {
   // no need to dar at all of we're offscreen
@@ -645,7 +645,7 @@ void Arduboy::drawSlowXYBitmap
 }
 
 
-void Arduboy::drawChar
+void ArduboyClassic::drawChar
 (int16_t x, int16_t y, unsigned char c, uint8_t color, uint8_t bg, uint8_t size)
 {
   boolean draw_background = bg != color;
@@ -687,24 +687,24 @@ void Arduboy::drawChar
   }
 }
 
-void Arduboy::setCursor(int16_t x, int16_t y)
+void ArduboyClassic::setCursor(int16_t x, int16_t y)
 {
   cursor_x = x;
   cursor_y = y;
 }
 
-void Arduboy::setTextSize(uint8_t s)
+void ArduboyClassic::setTextSize(uint8_t s)
 {
   // textsize must always be 1 or higher
   textsize = max(1,s); 
 }
 
-void Arduboy::setTextWrap(boolean w)
+void ArduboyClassic::setTextWrap(boolean w)
 {
   wrap = w;
 }
 
-size_t Arduboy::write(uint8_t c)
+size_t ArduboyClassic::write(uint8_t c)
 {
   if (c == '\n')
   {
@@ -728,28 +728,28 @@ size_t Arduboy::write(uint8_t c)
   }
 }
 
-void Arduboy::display()
+void ArduboyClassic::display()
 {
   this->paintScreen(sBuffer);
 }
 
-unsigned char* Arduboy::getBuffer()
+unsigned char* ArduboyClassic::getBuffer()
 {
   return sBuffer;
 }
 
 
-boolean Arduboy::pressed(uint8_t buttons)
+boolean ArduboyClassic::pressed(uint8_t buttons)
 {
   return (buttonsState() & buttons) == buttons;
 }
 
-boolean Arduboy::notPressed(uint8_t buttons)
+boolean ArduboyClassic::notPressed(uint8_t buttons)
 {
   return (buttonsState() & buttons) == 0;
 }
 
-void Arduboy::swap(int16_t& a, int16_t& b)
+void ArduboyClassic::swap(int16_t& a, int16_t& b)
 {
   int temp = a;
   a = b;

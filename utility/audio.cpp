@@ -1,4 +1,4 @@
-#include "Arduboy.h"
+#include "ArduboyClassic.h"
 #include "audio.h"
 
 const byte PROGMEM tune_pin_to_timer_PGM[] = { 3, 1 };
@@ -39,33 +39,33 @@ const unsigned int PROGMEM _midi_word_note_frequencies[80] = {
 
 /* AUDIO */
 
-bool ArduboyAudio::audio_enabled = false;
+bool ArduboyClassicAudio::audio_enabled = false;
 
-void ArduboyAudio::on()
+void ArduboyClassicAudio::on()
 {
   power_timer1_enable();
   power_timer3_enable();
   audio_enabled = true;
 }
 
-bool ArduboyAudio::enabled()
+bool ArduboyClassicAudio::enabled()
 {
   return audio_enabled;
 }
 
-void ArduboyAudio::off()
+void ArduboyClassicAudio::off()
 {
   audio_enabled = false;
   power_timer1_disable();
   power_timer3_disable();
 }
 
-void ArduboyAudio::saveOnOff()
+void ArduboyClassicAudio::saveOnOff()
 {
   EEPROM.write(EEPROM_AUDIO_ON_OFF, audio_enabled);
 }
 
-void ArduboyAudio::begin()
+void ArduboyClassicAudio::begin()
 {
   tune_playing = false;
   if (EEPROM.read(EEPROM_AUDIO_ON_OFF))
@@ -74,7 +74,7 @@ void ArduboyAudio::begin()
 
 /* TUNES */
 
-void ArduboyTunes::initChannel(byte pin)
+void ArduboyClassicTunes::initChannel(byte pin)
 {
   byte timer_num;
 
@@ -108,7 +108,7 @@ void ArduboyTunes::initChannel(byte pin)
   }
 }
 
-void ArduboyTunes::playNote(byte chan, byte note)
+void ArduboyClassicTunes::playNote(byte chan, byte note)
 {
   byte timer_num;
   byte prescalar_bits;
@@ -156,7 +156,7 @@ void ArduboyTunes::playNote(byte chan, byte note)
   }
 }
 
-void ArduboyTunes::stopNote(byte chan)
+void ArduboyClassicTunes::stopNote(byte chan)
 {
   byte timer_num;
   timer_num = pgm_read_byte(tune_pin_to_timer_PGM + chan);
@@ -172,7 +172,7 @@ void ArduboyTunes::stopNote(byte chan)
   }
 }
 
-void ArduboyTunes::playScore(const byte *score)
+void ArduboyClassicTunes::playScore(const byte *score)
 {
   score_start = score;
   score_cursor = score_start;
@@ -180,14 +180,14 @@ void ArduboyTunes::playScore(const byte *score)
   tune_playing = true;  /* release the interrupt routine */
 }
 
-void ArduboyTunes::stopScore (void)
+void ArduboyClassicTunes::stopScore (void)
 {
   for (uint8_t i = 0; i < _tune_num_chans; i++)
     stopNote(i);
   tune_playing = false;
 }
 
-bool ArduboyTunes::playing()
+bool ArduboyClassicTunes::playing()
 {
   return tune_playing;
 }
@@ -197,7 +197,7 @@ This is called initially from tune_playcore, but then is called
 from the interrupt routine when waits expire.
 */
 /* if CMD < 0x80, then the other 7 bits and the next byte are a 15-bit big-endian number of msec to wait */
-void ArduboyTunes::step()
+void ArduboyClassicTunes::step()
 {
   byte command, opcode, chan;
   unsigned duration;
@@ -228,7 +228,7 @@ void ArduboyTunes::step()
   }
 }
 
-void ArduboyTunes::closeChannels(void)
+void ArduboyClassicTunes::closeChannels(void)
 {
   byte timer_num;
   for (uint8_t chan=0; chan < _tune_num_chans; chan++) {
@@ -247,18 +247,18 @@ void ArduboyTunes::closeChannels(void)
   tune_playing = false;
 }
 
-void ArduboyTunes::soundOutput()
+void ArduboyClassicTunes::soundOutput()
 {
   if (wait_timer_playing) { // toggle the pin if we're sounding a note
     *_tunes_timer3_pin_port ^= _tunes_timer3_pin_mask;
   }
   if (tune_playing && wait_toggle_count && --wait_toggle_count == 0) {
     // end of a score wait, so execute more score commands
-    ArduboyTunes::step();  // execute commands
+    ArduboyClassicTunes::step();  // execute commands
   }
 }
 
-void ArduboyTunes::tone(unsigned int frequency, unsigned long duration)
+void ArduboyClassicTunes::tone(unsigned int frequency, unsigned long duration)
 {
   tonePlaying = true;
   uint8_t prescalarbits = 0b001;
@@ -314,6 +314,6 @@ ISR(TIMER3_COMPA_vect)
 {
   // Timer 3 is the one assigned first, so we keep it running always
   // and use it to time score waits, whether or not it is playing a note.
-  ArduboyTunes::soundOutput();
+  ArduboyClassicTunes::soundOutput();
 }
 

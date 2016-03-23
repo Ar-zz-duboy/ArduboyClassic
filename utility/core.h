@@ -1,5 +1,5 @@
-#ifndef ArduboyCore_h
-#define ArduboyCore_h
+#ifndef ArduboyClassicCore_h
+#define ArduboyClassicCore_h
 
 #include <Arduino.h>
 #include <avr/power.h>
@@ -134,10 +134,10 @@
 #define WHITE 1 //< lit pixel
 #define BLACK 0 //< unlit pixel
 
-class ArduboyCore
+class ArduboyClassicCore
 {
 public:
-    ArduboyCore();
+    ArduboyClassicCore();
 
     /// allows the CPU to idle between frames
     /**

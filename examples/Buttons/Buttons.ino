@@ -13,10 +13,10 @@ version 2.1 of the License, or (at your option) any later version.
 */
 #include <SPI.h>
 #include <EEPROM.h>
-#include <Arduboy.h>
+#include <ArduboyClassic.h>
 
 // Make an instance of arduboy used for many functions
-Arduboy arduboy;
+ArduboyClassic arduboy;
 
 // Variables for your game go here.
 char text[] = "Press Buttons!";

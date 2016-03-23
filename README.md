@@ -72,14 +72,14 @@ determine its location using the navigation menu `File > Preferences`. In the
 will be in the folder set in this field.
 
 ### Including the Arduboy Library
-To use the Arduboy library in your own sketches, include the `Arduboy.h`
+To use the Arduboy library in your own sketches, include the `ArduboyClassic.h`
 header file. To do so, add the following line to the top of your `.ino` file.
 
 ~~~C
-#include <Arduboy.h>
+#include <ArduboyClassic.h>
 ~~~
 
-You can have the Arduino IDE add `#include "Arduboy.h"` to your sketch
+You can have the Arduino IDE add `#include "ArduboyClasic.h"` to your sketch
 automatically by using the navigation menu `Sketch > Include Library > Arduboy`.
 
 ### Board Selection
